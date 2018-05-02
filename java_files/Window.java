@@ -16,14 +16,13 @@
 import java.awt.*;
 import javax.swing.*;
 
-//-----------------------------------------------------------------------------------------------------------------------
-// CLASS
-//-----------------------------------------------------------------------------------------------------------------------
 public class Window extends JFrame {
-    
+    //-----------------------------------------------------------------------------------------------------------------------
+    // FUNCTIONAL CODE
+    //-----------------------------------------------------------------------------------------------------------------------    
     private JLabel textDisplayedOnWindow;
     
-    public Window(){
+    private Window(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.addLabel();
@@ -48,4 +47,50 @@ public class Window extends JFrame {
     public void updateTextDisplayedOnWindow(String newTextToDisplayOnWindow) {
         textDisplayedOnWindow.setText(newTextToDisplayOnWindow);
     }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    // TESTING CODE
+    //-----------------------------------------------------------------------------------------------------------------------
+    public static void main(String[] args) {
+        runTests();
+    }
+
+    private static void runTests() {
+        createWindowTest();
+        showWindowTest();
+        updateTextDisplayedOnWindowTest();
+    }
+    
+    private static void createWindowTest() {
+        Window testWindow = Window.createWindow();
+        assert(testWindow != null);
+        testWindow.setVisible(false);
+        testWindow.dispose();
+    }
+    
+    private static void showWindowTest() {
+        Window testWindow = Window.createWindow();
+        testWindow.showWindow();
+        assert(testWindow.isShowing());
+        testWindow.setVisible(false);
+        testWindow.dispose();
+    }
+    
+    private static void updateTextDisplayedOnWindowTest() {
+        Window testWindow = Window.createWindow();
+        testWindow.showWindow();
+        testWindow.updateTextDisplayedOnWindow("Expected Text");
+        assert( testWindow.textDisplayedOnWindow.getText().equals("Expected Text") );
+        testWindow.setVisible(false);
+        testWindow.dispose();
+    }
 }
+
+
+
+
+
+
+
+
+

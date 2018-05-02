@@ -27,6 +27,14 @@ public class LiveInformationDisplayApplication {
     public LiveInformationDisplayApplication() {}
     
     public static void main(String args[]){
+        if(args.length > 0 && args[0] != null && args[0].equals("-test")) {
+            runTests();
+        } else {
+            runApplication();
+        }
+    }
+
+    public static void runApplication() {
         LiveInformationDisplayApplication liveInformationDisplayApplication = new LiveInformationDisplayApplication();
         liveInformationDisplayApplication.setup();
         liveInformationDisplayApplication.start();
@@ -66,5 +74,35 @@ public class LiveInformationDisplayApplication {
     
     private void addInputToDatabase(String inputToAddToDatabase) {
         this.displayInformationDatabase.addDisplayInformationEntry(inputToAddToDatabase);
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    // TESTING APPLICATION CODE
+    //-----------------------------------------------------------------------------------------------------------------------
+    private static void runTests() {
+        setupTest();
+        startTest();
+    }
+    
+    private static void setupTest() {
+        LiveInformationDisplayApplication liveInformationDisplayApplication = new LiveInformationDisplayApplication();
+        liveInformationDisplayApplication.setup();
+        assert(liveInformationDisplayApplication.displayInformationDatabase != null);
+        assert(liveInformationDisplayApplication.displayInformationDatabase == liveInformationDisplayApplication.liveInformationDisplay.getDisplayInformationDatabase());
+    }
+    
+    private static void startTest() {
+        LiveInformationDisplayApplication liveInformationDisplayApplication = new LiveInformationDisplayApplication();
+        liveInformationDisplayApplication.setup();
+        liveInformationDisplayApplication.modifiedStart();
+        assert(liveInformationDisplayApplication.liveInformationDisplay.displayIsShowing());
+        System.exit(1); // TO FIX
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    // TESTING UTILITY FUNCTIONS
+    //-----------------------------------------------------------------------------------------------------------------------
+    private void modifiedStart(){
+        this.liveInformationDisplay.start();
     }
 }

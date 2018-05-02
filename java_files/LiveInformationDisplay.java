@@ -15,11 +15,10 @@
 //-----------------------------------------------------------------------------------------------------------------------
 // <NONE>
 
-//-----------------------------------------------------------------------------------------------------------------------
-// CLASS
-//-----------------------------------------------------------------------------------------------------------------------
 public class LiveInformationDisplay extends Thread {
-    
+    //-----------------------------------------------------------------------------------------------------------------------
+    // FUNCTIONAL CODE
+    //-----------------------------------------------------------------------------------------------------------------------    
     private final DisplayInformationDatabase displayInformationDatabase;
     private final Window displayInformationWindow;
     
@@ -55,5 +54,37 @@ public class LiveInformationDisplay extends Thread {
         if(entryFromDatabase != null) {
             this.displayInformationWindow.updateTextDisplayedOnWindow(entryFromDatabase);
         }
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    // TESTING CODE
+    //-----------------------------------------------------------------------------------------------------------------------
+    public static void main(String[] args) {
+        runTests();
+    }
+
+    private static void runTests() {
+        createWithLiveInformationDatabaseTest();
+    }
+    
+    private static void createWithLiveInformationDatabaseTest() {
+        DisplayInformationDatabase testDatabase = new DisplayInformationDatabase();
+        LiveInformationDisplay testLiveInformationDisplay = LiveInformationDisplay.createWithLiveInformationDatabase(testDatabase);
+        assert(testLiveInformationDisplay.displayInformationDatabase == testDatabase);
+        assert(testLiveInformationDisplay.displayInformationWindow != null);
+        assert(testLiveInformationDisplay.displayInformationWindow.isShowing());
+        testLiveInformationDisplay.displayInformationWindow.setVisible(false);
+        testLiveInformationDisplay.displayInformationWindow.dispose();
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    // TESTING UTILITY FUNCTIONS
+    //-----------------------------------------------------------------------------------------------------------------------
+    public DisplayInformationDatabase getDisplayInformationDatabase() {
+        return this.displayInformationDatabase;
+    }
+
+    public boolean displayIsShowing() {
+        return this.displayInformationWindow.isShowing();
     }
 }

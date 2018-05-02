@@ -16,11 +16,10 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-//-----------------------------------------------------------------------------------------------------------------------
-// CLASS
-//-----------------------------------------------------------------------------------------------------------------------
 public class DisplayInformationDatabase {
-    
+    //-----------------------------------------------------------------------------------------------------------------------
+    // FUNCTIONAL CODE
+    //-----------------------------------------------------------------------------------------------------------------------
     Queue<String> displayInformationQueue;
     
     public DisplayInformationDatabase(){
@@ -49,5 +48,37 @@ public class DisplayInformationDatabase {
             queueIsNotEmpty = false;
         }
         return queueIsNotEmpty;
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    // TESTING CODE
+    //-----------------------------------------------------------------------------------------------------------------------
+    public static void main(String[] args) {
+        runTests();
+    }
+
+    private static void runTests() {
+        addDisplayInformationEntryTest();
+        getADisplayInformationEntryTest();
+    }
+    
+    private static void addDisplayInformationEntryTest() {
+        DisplayInformationDatabase testDisplayInformationDatabase = new DisplayInformationDatabase();
+        testDisplayInformationDatabase.addDisplayInformationEntry("TEST ENTRY");
+        assert(testDisplayInformationDatabase.peekAtTopEntry().equals("TEST ENTRY"));
+    }
+    
+    private static void getADisplayInformationEntryTest() {
+        DisplayInformationDatabase testDisplayInformationDatabase = new DisplayInformationDatabase();
+        testDisplayInformationDatabase.addDisplayInformationEntry("TEST ENTRY");
+        String displayInformationnEntry = testDisplayInformationDatabase.getADisplayInformationEntry();
+        assert(displayInformationnEntry.equals("TEST_ENTRY"));
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+    // TESTING UTILITY FUNCTIONS
+    //-----------------------------------------------------------------------------------------------------------------------
+    private String peekAtTopEntry() {
+        return this.displayInformationQueue.peek();
     }
 }
