@@ -22,9 +22,12 @@ main()
     
     echo "Compile"
     ./compile.sh
+
+    echo "Test"
+    ./test.sh
     
-    echo "Run"
-    ./run.sh
+    echo "Update Git"
+    ./updateGit.sh
     
     echo "<DONE>"
 }
