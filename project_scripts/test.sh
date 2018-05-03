@@ -31,42 +31,19 @@ main()
 function testAllClasses()
 {
     cd ../java_files/
-    testWindowClass
-    testDisplayInformationDatabaseClass
-    testLiveInformationDisplayClass
-    testLiveInformationDisplayApplicationClass
+    for filename in ./*.java; do
+        filename=$(echo "$filename" | cut -c 3- | cut -f 1 -d '.')
+        testClass "$filename"
+    done
 }
 
-function testWindowClass()
+function testClass()
 {
-    echo "  Testing Window Class..."
-    javac Window.java
-    java Window
-    rm *.class
-}
-
-function testDisplayInformationDatabaseClass()
-{
-    echo "  Testing DisplayInformationDatabase Class..."
-    javac DisplayInformationDatabase.java
-    java DisplayInformationDatabase
-    rm *.class
-}
-
-function testLiveInformationDisplayClass()
-{
-    echo "  Testing LiveInformationDisplay Class..."
-    javac LiveInformationDisplay.java
-    java LiveInformationDisplay
-    rm *.class
-}
-
-function testLiveInformationDisplayApplicationClass()
-{
-    echo "  Testing LiveInformationDisplayApplication Class..."
-    javac LiveInformationDisplayApplication.java
-    java LiveInformationDisplayApplication -test
-    rm *.class
+    filename="$1"
+    echo "  Testing "$filename" Class..."
+    javac "$filename".java
+    java "$filename" -test
+    rm "$filename".class
 }
 
 #----------------------------------------------------------------------------------------------------------------------
