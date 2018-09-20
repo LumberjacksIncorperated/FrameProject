@@ -1,47 +1,46 @@
 //-----------------------------------------------------------------------------------------------------------------------
 //
-// PROJECT
-// -------
-// "Live Information Display Project"
-//
 // AUTHOR
 // ------
 // Lumberjacks Incorperated (2018)
 //
 //-----------------------------------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------------------------------
-// IMPORTS
-//-----------------------------------------------------------------------------------------------------------------------
 import java.util.Scanner;
 
 public class LiveInformationDisplayApplication {
-    //-----------------------------------------------------------------------------------------------------------------------
-    // FUNCTIONAL CODE
-    //-----------------------------------------------------------------------------------------------------------------------   
+    
+    public static final int RUN_APPLICATION = 0;
+    public static final int RUN_TESTS 1;
+    
     private DisplayInformationDatabase displayInformationDatabase;
     private LiveInformationDisplay liveInformationDisplay;
-    private Scanner commandLineInputReader = new Scanner(System.in);
+    private Scanner commandLineInputReader;
     
-    public LiveInformationDisplayApplication() {}
+    public LiveInformationDisplayApplication() {
+        this.displayInformationDatabase = new DisplayInformationDatabase();
+        this.liveInformationDisplay = LiveInformationDisplay.createWithLiveInformationDatabase(displayInformationDatabase);
+        this.commandLineInputReader = new Scanner(System.in);
+    }
+    
+    public static int interpretCommandLineArguementsForApplication(String args[]) {
+        if(args.length > 0 && args[0] != null && args[0].equals("-test")) {
+            return RUN_TESTS;
+        } else {
+            return RUN_APPLICATION;
+        }
+    }
     
     public static void main(String args[]){
-        if(args.length > 0 && args[0] != null && args[0].equals("-test")) {
-            runTests();
-        } else {
+        if(interpretCommandLineArguementsForApplication(args) == RUN_APPLICATION) {
             runApplication();
+        } else if(interpretCommandLineArguementsForApplication(args) == RUN_TESTS) {
+            runTests();
         }
     }
 
     public static void runApplication() {
         LiveInformationDisplayApplication liveInformationDisplayApplication = new LiveInformationDisplayApplication();
-        liveInformationDisplayApplication.setup();
         liveInformationDisplayApplication.start();
-    }
-    
-    public void setup(){
-        this.displayInformationDatabase = new DisplayInformationDatabase();
-        this.liveInformationDisplay = LiveInformationDisplay.createWithLiveInformationDatabase(displayInformationDatabase);
     }
     
     public void start(){
